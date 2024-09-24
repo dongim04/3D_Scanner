@@ -5,7 +5,7 @@ Servo servoTilt;
 
 const int panServoPin = 9;
 const int tiltServoPin = 10;
-const int sensorPin = A0; // IR sensor pin
+const int sensorPin = A0;
 
 int panAngle = 0;
 int tiltAngle = 0;
@@ -23,18 +23,17 @@ bool running = true;
 
 void loop() {
   if (running) {
-    for (tiltAngle = 0; tiltAngle <= 90; tiltAngle += 10) {  // Loop over tilt angles
+    for (tiltAngle = 0; tiltAngle <= 90; tiltAngle += 10) {
       servoTilt.write(tiltAngle);
-      delay(500);  // Give time for servo to move
+      delay(500);
 
-      for (panAngle = 0; panAngle <= 180; panAngle += 10) {  // Loop over pan angles
+      for (panAngle = 0; panAngle <= 180; panAngle += 10) {
         servoPan.write(panAngle);
-        delay(500);  // Give time for servo to move
+        delay(500);
 
         int sensorValue = analogRead(sensorPin);
-        float distance = map(sensorValue, 0, 1023, sensorMinDist, sensorMaxDist);  // Adjust based on calibration
+        float distance = map(sensorValue, 0, 1023, sensorMinDist, sensorMaxDist);  // calibration
 
-        // Print the data to the Serial Monitor
         Serial.print(panAngle);
         Serial.print(",");
         Serial.print(tiltAngle);
